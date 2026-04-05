@@ -20,6 +20,8 @@ export default function Login() {
 
             if (admin) {
                 navigate("/admin");
+            } else {
+                navigate("/home"); // luego cambiaremos a /home
             }
             console.log("IS ADMIN:", admin);
         }

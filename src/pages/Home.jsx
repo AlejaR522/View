@@ -1,43 +1,44 @@
 import { useEffect, useState } from "react";
-import { updateUser } from "../services/userService";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import { supabase } from "../lib/supabase";
 
-function Home() {
-  const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
+export default function Home() {
+    const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    loadUsers();
-  }, []);
+    useEffect(() => {
+        loadUsers();
+    }, []);
 
-  const loadUsers = async () => {
-    const data = await updateUser();
-    setUsers(data);
-  };
+    const loadUsers = async () => {
+        const { data, error } = await supabase
+            .from("users")
+            .select("*");
 
-  return (
-    <div>
-      <Navbar />
+        if (error) {
+            console.log(error);
+            return;
+        }
 
-      <div className="p-6">
-        <input
-          placeholder="Buscar usuario..."
-          className="border p-2 rounded w-full mb-4"
-        />
+        setUsers(data);
+    };
 
-        {users.map((user) => (
-          <div
-            key={user.id}
-            className="border p-3 rounded mb-2 cursor-pointer hover:bg-gray-100"
-            onClick={() => navigate(`/profile/${user.id}`)}
-          >
-            {user.nombre}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    return (
+        <div className="p-6">
+            <h1 className="text-xl mb-4">Usuarios</h1>
+
+            {users.map((user) => (
+                <div
+                    key={user.id}
+                    className="border p-3 rounded mb-2"
+                >
+                    <img
+                        src={user.avatar_url || "https://via.placeholder.com/100"}
+                        className="w-16 h-16 rounded-full mb-2"
+                    />
+
+                    <p>{user.nombre}</p>
+                    <p>{user.correo}</p>
+                </div>
+            ))}
+        </div>
+    );
 }
-
-export default Home;

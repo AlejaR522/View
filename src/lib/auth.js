@@ -6,14 +6,11 @@ export const getSession = async () => {
 };
 
 export const isAdmin = async (userId) => {
-    const { data, error } = await supabase
-        .from("admins")
-        .select("id")
+    const { data } = await supabase
+        .from("users")
+        .select("role")
         .eq("id", userId)
-        .maybeSingle();
-        
-    console.log("USER ID:", userId);
-    console.log("ADMIN QUERY:", data, error);
+        .single();
 
-    return !!data;
+    return data?.role === "admin";
 };
