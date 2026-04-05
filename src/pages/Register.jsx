@@ -36,4 +36,18 @@ export default function Register() {
             }
         ]);
         };
+        return (
+        <AuthLayout>
+            <AuthForm
+                isRegister
+                nombre={nombre}
+                setNombre={setNombre}
+                correo={correo}
+                setCorreo={setCorreo}
+                password={password}
+                setPassword={setPassword}
+                onSubmit={handleRegister}
+            />
+        </AuthLayout>
+    );
     };
