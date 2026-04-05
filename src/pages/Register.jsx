@@ -2,6 +2,7 @@ import { useState } from "react";
 import AuthLayout from "../components/AuthLayout";
 import AuthForm from "../components/AuthForm";
 import { supabase } from "../lib/supabase";
+import CryptoJS from "crypto-js";
 
 export default function Register() {
     const [nombre, setNombre] = useState("");
@@ -9,37 +10,30 @@ export default function Register() {
     const [password, setPassword] = useState("");
 
     const handleRegister = async () => {
-        const {data, error } = await supabase.auth.signUp({
+
+        // 1. crear usuario en auth
+        const { data, error } = await supabase.auth.signUp({
             email: correo,
-            password: password,
-            options: {
-                data: {
-                    nombre: nombre, // 👈 guardamos el nombre en metadata
-                },
-            },
+            password: password
         });
-        console.log("REGISTER:", data, error);
 
         if (error) {
             alert(error.message);
             return;
         }
 
-        alert("Cuenta creada!");
-    };
+        // 2. encriptar contraseña (para mostrar)
+        const hashedPassword = CryptoJS.SHA256(password).toString();
 
-    return (
-        <AuthLayout>
-            <AuthForm
-                isRegister
-                nombre={nombre}
-                setNombre={setNombre}
-                correo={correo}
-                setCorreo={setCorreo}
-                password={password}
-                setPassword={setPassword}
-                onSubmit={handleRegister}
-            />
-        </AuthLayout>
-    );
-}
+        // 3. guardar en tabla users
+        await supabase.from("users").insert([
+            {
+            id: data.user.id,
+            nombre: nombre,
+            correo: correo,
+            role: "user",
+            password_hash: hashedPassword
+            }
+        ]);
+        };
+    };
