@@ -14,10 +14,9 @@ export default function Admin() {
         const { data, error } = await supabase
             .from("users")
             .select(`
-                id,
                 nombre,
                 correo,
-                auth:auth.users(encrypted_password)
+                password_hash
             `);
 
     if (error) console.log(error);
@@ -41,7 +40,7 @@ export default function Admin() {
                     <p>{user.nombre}</p>
                     <p>{user.correo}</p>
                     <p className="text-xs">
-                        {user.auth?.encrypted_password}
+                        {user.password_hash}
                     </p>
                 </div>
             ))}
