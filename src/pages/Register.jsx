@@ -9,30 +9,23 @@ export default function Register() {
     const [password, setPassword] = useState("");
 
     const handleRegister = async () => {
-        const { data, error } = await supabase.auth.signUp({
+        const {data, error } = await supabase.auth.signUp({
             email: correo,
             password: password,
-    });
+            options: {
+                data: {
+                    nombre: nombre, // 👈 guardamos el nombre en metadata
+                },
+            },
+        });
+        console.log("REGISTER:", data, error);
 
-    if (error) {
-        alert(error.message);
-        return;
-    }
+        if (error) {
+            alert(error.message);
+            return;
+        }
 
-    const user = data.user || data.session?.user;
-
-    if (!user) {
-        alert("No se pudo obtener el usuario");
-        return;
-    }
-
-    await supabase.from("users").insert({
-        id: user.id,
-        nombre,
-        correo,
-    });
-
-    alert("Cuenta creada!");
+        alert("Cuenta creada!");
     };
 
     return (

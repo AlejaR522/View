@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Admin() {
     const [usuarios, setUsuarios] = useState([]);
@@ -22,6 +24,13 @@ export default function Admin() {
         else setUsuarios(data);
     };
 
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        navigate("/");
+    };
+
     return (
         <div className="p-10">
             <h1 className="text-2xl mb-6">Panel Admin</h1>
@@ -37,6 +46,12 @@ export default function Admin() {
                 </div>
             ))}
             </div>
+            <button
+                onClick={handleLogout}
+                    className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
+                >
+                Cerrar sesión
+            </button>
         </div>
     );
 }

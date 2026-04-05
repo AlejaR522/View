@@ -1,5 +1,6 @@
 import Input from "./Input";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 export default function AuthForm({
     isRegister,
@@ -36,7 +37,23 @@ export default function AuthForm({
                 text={isRegister ? "Crear cuenta" : "Iniciar sesión"}
                 onClick={onSubmit}
             />
-
+            <div className="text-center text-sm mt-2">
+                {isRegister ? (
+                <>
+                    ¿Ya tienes cuenta?{" "}
+                    <Link to="/" className="text-black font-semibold">
+                        Iniciar sesión
+                    </Link>
+                </>
+                ) : (
+                <>
+                    ¿No tienes cuenta?{" "}
+                    <Link to="/register" className="text-black font-semibold">
+                        Crear cuenta
+                    </Link>
+                </>
+                )}
+            </div>
         </div>
     );
 }
