@@ -168,7 +168,7 @@ export default function Home() {
             <article className="rounded-[28px] border border-black/10 bg-black p-5 text-white sm:rounded-[32px] sm:p-7">
               <p className="text-[11px] uppercase tracking-[0.35em] text-white/45">Enfoque</p>
               <p className="mt-4 text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
-                Diseno minimalista, contraste alto y una lectura clara para perfiles profesionales.
+                Diseño minimalista, contraste alto y una lectura clara para perfiles profesionales.
               </p>
             </article>
           </aside>
