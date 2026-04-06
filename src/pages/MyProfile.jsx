@@ -4,60 +4,24 @@ import { supabase } from "../lib/supabase";
 
 function ArrowLeftIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      className="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M15 18l-6-6 6-6"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-      />
+    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
     </svg>
   );
 }
 
 function EditIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      className="h-4 w-4"
-      fill="none"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M16.862 3.487a2.25 2.25 0 113.182 3.182L8.25 18.463 4.5 19.5l1.037-3.75L16.862 3.487z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
+    <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.862 3.487a2.25 2.25 0 113.182 3.182L8.25 18.463 4.5 19.5l1.037-3.75L16.862 3.487z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
     </svg>
   );
 }
 
 function CameraIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      className="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M4 8h3l1.5-2h7L17 8h3v10H4V8zm8 7a3 3 0 100-6 3 3 0 000 6z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
+    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 8h3l1.5-2h7L17 8h3v10H4V8zm8 7a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
     </svg>
   );
 }
@@ -105,21 +69,11 @@ export default function MyProfile() {
 
       // Si existe en Auth pero no en la tabla `users`, creamos la fila base.
       if (!resolvedUser) {
-        const fallbackNombre =
-          authUser.user_metadata?.nombre ||
-          authUser.email?.split("@")[0] ||
-          "Usuario";
+        const fallbackNombre = authUser.user_metadata?.nombre || authUser.email?.split("@")[0] || "Usuario";
 
         const { data: insertedUser, error: insertError } = await supabase
           .from("users")
-          .insert([
-            {
-              id: authUser.id,
-              nombre: fallbackNombre,
-              correo: authUser.email ?? "",
-              role: "user",
-            },
-          ])
+          .insert([{ id: authUser.id, nombre: fallbackNombre, correo: authUser.email ?? "", role: "user" }])
           .select()
           .single();
 
@@ -166,28 +120,17 @@ export default function MyProfile() {
 
     // Si eligio una imagen nueva, se sube primero al bucket de storage.
     if (file) {
-      // Forzamos extensión según el tipo MIME real del archivo
-      const mimeToExt = {
-        "image/jpeg": "jpg",
-        "image/png": "png",
-        "image/webp": "webp",
-        "image/gif": "gif",
-      };
+      const mimeToExt = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
       const extension = mimeToExt[file.type] || "jpg";
       const version = Date.now();
-
-      // Guardamos en una carpeta con el id del usuario y un nombre distinto por subida.
       const fileName = `${user.id}/avatar-${version}.${extension}`;
 
-      const { error: uploadError } = await supabase.storage
-        .from("avatars")
-        .upload(fileName, file, {
-          upsert: true,
-          contentType: file.type, // <-- esto es clave para evitar el 400
-        });
+      const { error: uploadError } = await supabase.storage.from("avatars").upload(fileName, file, {
+        upsert: true,
+        contentType: file.type,
+      });
 
       if (uploadError) {
-        console.error("Upload error:", uploadError); // para ver el error exacto
         setMessage("No se pudo subir la imagen: " + uploadError.message);
         setSaving(false);
         return;
@@ -196,6 +139,7 @@ export default function MyProfile() {
       const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
       avatarUrl = data.publicUrl;
     }
+
     const trimmedNombre = nombre.trim();
     const trimmedCorreo = correo.trim();
 
@@ -205,16 +149,10 @@ export default function MyProfile() {
       return;
     }
 
-    console.log("Actualizando perfil con:", {nombre, correo, avatarUrl});
-
     // Guarda la version visible del perfil dentro de la tabla `users`.
     const { data: updatedUser, error: updateError } = await supabase
       .from("users")
-      .update({
-        nombre: trimmedNombre,
-        correo: trimmedCorreo,
-        avatar_url: avatarUrl,
-      })
+      .update({ nombre: trimmedNombre, correo: trimmedCorreo, avatar_url: avatarUrl })
       .eq("id", user.id)
       .select()
       .single();
@@ -235,8 +173,7 @@ export default function MyProfile() {
       });
 
       if (authUpdateError) {
-        nextMessage =
-          "Tu perfil se guardo, pero el correo no se pudo sincronizar con Auth.";
+        nextMessage = "Tu perfil se guardo, pero el correo no se pudo sincronizar con Auth.";
       }
     }
 
@@ -275,8 +212,8 @@ export default function MyProfile() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#f3f2ee] px-3 py-3">
-        <div className="mx-auto max-w-[1600px] rounded-[40px] border border-black/10 bg-white p-12 text-center text-lg font-medium text-zinc-500 shadow-[0_30px_90px_rgba(0,0,0,0.08)]">
+      <main className="min-h-screen bg-[#f3f2ee] px-2 py-2 sm:px-4 sm:py-4">
+        <div className="mx-auto max-w-[1600px] rounded-[28px] border border-black/10 bg-white p-8 text-center text-lg font-medium text-zinc-500 shadow-[0_30px_90px_rgba(0,0,0,0.08)] sm:rounded-[40px] sm:p-12">
           Cargando perfil...
         </div>
       </main>
@@ -284,14 +221,14 @@ export default function MyProfile() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f2ee] px-3 py-3 text-zinc-950 sm:px-4 lg:px-5">
-      <section className="mx-auto min-h-[calc(100vh-24px)] max-w-[1600px] overflow-hidden rounded-[40px] border border-black/10 bg-white shadow-[0_40px_120px_rgba(0,0,0,0.10)]">
+    <main className="min-h-screen bg-[#f3f2ee] px-2 py-2 text-zinc-950 sm:px-4 sm:py-4 lg:px-5">
+      <section className="mx-auto min-h-[calc(100vh-16px)] max-w-[1600px] overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_40px_120px_rgba(0,0,0,0.10)] sm:min-h-[calc(100vh-32px)] sm:rounded-[40px]">
         <header className="border-b border-white/10 bg-black text-white">
-          <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-7 sm:px-8 lg:px-12">
+          <div className="flex flex-col gap-4 px-4 py-5 sm:px-8 sm:py-7 lg:flex-row lg:items-center lg:justify-between lg:px-12">
             <button
               type="button"
               onClick={() => navigate("/home")}
-              className="flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-3 text-sm font-medium transition hover:bg-white/10"
+              className="flex w-full items-center justify-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-3 text-sm font-medium transition hover:bg-white/10 sm:w-auto"
               title="Volver"
             >
               <ArrowLeftIcon />
@@ -299,133 +236,98 @@ export default function MyProfile() {
             </button>
 
             <div className="text-center">
-              <p className="text-[11px] uppercase tracking-[0.38em] text-white/45">Personal Area</p>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight">My Profile</h1>
+              <p className="text-[11px] uppercase tracking-[0.32em] text-white/45 sm:tracking-[0.38em]">Personal Area</p>
+              <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">My Profile</h1>
             </div>
 
             <button
               type="button"
               onClick={handleLogout}
-              className="rounded-full border border-white/15 bg-white px-5 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-zinc-200"
+              className="w-full rounded-full border border-white/15 bg-white px-5 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-zinc-200 sm:w-auto"
             >
               Cerrar sesion
             </button>
           </div>
         </header>
 
-        <div className="grid gap-8 px-6 py-8 sm:px-8 xl:grid-cols-[430px_minmax(0,1fr)] lg:px-12 lg:py-10">
-          <aside className="space-y-5">
-            <div className="relative overflow-hidden rounded-[36px] bg-black p-5 text-white">
+        <div className="grid gap-6 px-4 py-5 sm:px-8 sm:py-8 xl:grid-cols-[430px_minmax(0,1fr)] lg:px-12 lg:py-10">
+          <aside className="space-y-4 sm:space-y-5">
+            <div className="relative overflow-hidden rounded-[28px] bg-black p-4 text-white sm:rounded-[36px] sm:p-5">
               <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,#3b3b3b_0%,transparent_70%)] opacity-50" />
               <div className="relative">
-                <div className="overflow-hidden rounded-[32px] bg-zinc-900">
+                <div className="overflow-hidden rounded-[24px] bg-zinc-900 sm:rounded-[32px]">
                   {previewUrl ? (
-                    <img
-                      alt={nombre || "Mi avatar"}
-                      className="h-[460px] w-full object-cover"
-                      src={previewUrl}
-                    />
+                    <img alt={nombre || "Mi avatar"} className="h-[280px] w-full object-cover sm:h-[460px]" src={previewUrl} />
                   ) : (
-                    <div className="flex h-[460px] w-full items-center justify-center text-8xl font-semibold text-white">
+                    <div className="flex h-[280px] w-full items-center justify-center text-6xl font-semibold text-white sm:h-[460px] sm:text-8xl">
                       {(nombre || "M")[0].toUpperCase()}
                     </div>
                   )}
                 </div>
 
-                <label className="mt-5 flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/15 bg-white/10 px-5 py-4 text-sm font-semibold transition hover:bg-white/15">
+                <label className="mt-4 flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/15 bg-white/10 px-5 py-4 text-sm font-semibold transition hover:bg-white/15 sm:mt-5">
                   <CameraIcon />
                   Cambiar fotografia
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="hidden"
-                  />
+                  <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
                 </label>
               </div>
             </div>
 
-            <article className="rounded-[32px] border border-black/10 bg-[#f7f7f5] p-7">
+            <article className="rounded-[28px] border border-black/10 bg-[#f7f7f5] p-5 sm:rounded-[32px] sm:p-7">
               <p className="text-[11px] uppercase tracking-[0.35em] text-zinc-500">Guia</p>
               <p className="mt-4 text-sm leading-7 text-zinc-600">
-                Aqui puedes ajustar tu identidad visual y tus datos principales. Los cambios se
-                reflejan en el perfil publico y en el directorio.
+                Aqui puedes ajustar tu identidad visual y tus datos principales. Los cambios se reflejan en el perfil publico y en el directorio.
               </p>
             </article>
           </aside>
 
-          <section className="space-y-6">
-            <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_260px]">
-              <div className="rounded-[36px] border border-black/10 bg-[#fbfbfa] p-7 sm:p-9">
-                <p className="text-[11px] uppercase tracking-[0.35em] text-zinc-500">
-                  Informacion principal
-                </p>
-                <h2 className="mt-3 text-4xl font-semibold tracking-tight">Profile Settings</h2>
+          <section className="space-y-5 sm:space-y-6">
+            <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-5">
+              <div className="rounded-[28px] border border-black/10 bg-[#fbfbfa] p-5 sm:rounded-[36px] sm:p-9">
+                <p className="text-[11px] uppercase tracking-[0.35em] text-zinc-500">Informacion principal</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Profile Settings</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-600">
-                  Mantener esta informacion actualizada hace que el resto del sistema muestre tu
-                  perfil de forma consistente.
+                  Mantener esta informacion actualizada hace que el resto del sistema muestre tu perfil de forma consistente.
                 </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4 xl:grid-cols-1">
-                <article className="rounded-[30px] border border-black/10 bg-black px-5 py-6 text-white">
+                <article className="rounded-[24px] border border-black/10 bg-black px-4 py-5 text-white sm:rounded-[30px] sm:px-5 sm:py-6">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">Estado</p>
-                  <p className="mt-3 text-2xl font-semibold">{saving ? "Saving" : "Ready"}</p>
+                  <p className="mt-3 text-xl font-semibold sm:text-2xl">{saving ? "Saving" : "Ready"}</p>
                 </article>
-                <article className="rounded-[30px] border border-black/10 bg-[#f7f7f5] px-5 py-6">
+                <article className="rounded-[24px] border border-black/10 bg-[#f7f7f5] px-4 py-5 sm:rounded-[30px] sm:px-5 sm:py-6">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-zinc-500">Preview</p>
-                  <p className="mt-3 text-2xl font-semibold text-black">{file ? "Nueva" : "Actual"}</p>
+                  <p className="mt-3 text-xl font-semibold text-black sm:text-2xl">{file ? "Nueva" : "Actual"}</p>
                 </article>
               </div>
             </div>
 
             <div className="grid gap-5">
               <div className="space-y-2">
-                <label className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-500">
-                  Nombre completo
-                </label>
-                <div className="flex items-center gap-3 rounded-[30px] border border-black/10 bg-white px-6 py-6 shadow-[0_12px_30px_rgba(0,0,0,0.04)]">
-                  <input
-                    value={nombre}
-                    onChange={(event) => setNombre(event.target.value)}
-                    className="w-full bg-transparent text-2xl font-semibold tracking-tight outline-none"
-                    placeholder="Tu nombre"
-                  />
-                  <span className="rounded-full border border-black/10 p-2 text-zinc-500">
-                    <EditIcon />
-                  </span>
+                <label className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-500">Nombre completo</label>
+                <div className="flex items-center gap-3 rounded-[24px] border border-black/10 bg-white px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:rounded-[30px] sm:px-6 sm:py-6">
+                  <input value={nombre} onChange={(event) => setNombre(event.target.value)} className="w-full bg-transparent text-xl font-semibold tracking-tight outline-none sm:text-2xl" placeholder="Tu nombre" />
+                  <span className="rounded-full border border-black/10 p-2 text-zinc-500"><EditIcon /></span>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-500">
-                  Correo profesional
-                </label>
-                <div className="flex items-center gap-3 rounded-[30px] border border-black/10 bg-white px-6 py-6 shadow-[0_12px_30px_rgba(0,0,0,0.04)]">
-                  <input
-                    type="email"
-                    value={correo}
-                    onChange={(event) => setCorreo(event.target.value)}
-                    className="w-full bg-transparent text-lg outline-none"
-                    placeholder="correo@ejemplo.com"
-                  />
-                  <span className="rounded-full border border-black/10 p-2 text-zinc-500">
-                    <EditIcon />
-                  </span>
+                <label className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-500">Correo profesional</label>
+                <div className="flex items-center gap-3 rounded-[24px] border border-black/10 bg-white px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:rounded-[30px] sm:px-6 sm:py-6">
+                  <input type="email" value={correo} onChange={(event) => setCorreo(event.target.value)} className="w-full bg-transparent text-base outline-none sm:text-lg" placeholder="correo@ejemplo.com" />
+                  <span className="rounded-full border border-black/10 p-2 text-zinc-500"><EditIcon /></span>
                 </div>
               </div>
             </div>
 
-
-
-
-            <div className="rounded-[32px] border border-black/10 bg-black px-6 py-5 text-sm leading-7 text-white/75">
-            Bienvenido a tu espacio personal.
+            <div className="rounded-[28px] border border-black/10 bg-black px-5 py-5 text-sm leading-7 text-white/75 sm:rounded-[32px] sm:px-6">
+              Bienvenido a tu espacio personal.
             </div>
 
             {message ? (
               <p
-                className={`rounded-[26px] px-5 py-4 text-sm font-medium ${
+                className={`rounded-[24px] px-5 py-4 text-sm font-medium sm:rounded-[26px] ${
                   message.includes("correctamente") || message.includes("Se guardo el perfil")
                     ? "border border-emerald-200 bg-emerald-50 text-emerald-700"
                     : "border border-red-200 bg-red-50 text-red-700"
@@ -435,19 +337,17 @@ export default function MyProfile() {
               </p>
             ) : null}
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <button
                 type="button"
                 onClick={handleUpdate}
                 disabled={saving}
-                className="rounded-full bg-black px-7 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-70"
+                className="w-full rounded-full bg-black px-7 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
                 {saving ? "Guardando cambios..." : "Guardar cambios"}
               </button>
 
-              <p className="text-sm text-zinc-500">
-                Vista previa activa: {file ? "imagen nueva seleccionada" : "foto guardada"}
-              </p>
+              <p className="text-sm text-zinc-500">Vista previa activa: {file ? "imagen nueva seleccionada" : "foto guardada"}</p>
             </div>
           </section>
         </div>
