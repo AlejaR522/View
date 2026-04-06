@@ -420,8 +420,7 @@ export default function MyProfile() {
 
 
             <div className="rounded-[32px] border border-black/10 bg-black px-6 py-5 text-sm leading-7 text-white/75">
-              La imagen no se guarda como archivo dentro de la tabla `users`: el archivo va a
-              Supabase Storage y en `avatar_url` solo queda guardada la URL publica.
+            Bienvenido a tu espacio personal.
             </div>
 
             {message ? (
