@@ -212,8 +212,8 @@ export default function MyProfile() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#f3f2ee] px-2 py-2 sm:px-4 sm:py-4">
-        <div className="mx-auto max-w-[1600px] rounded-[28px] border border-black/10 bg-white p-8 text-center text-lg font-medium text-zinc-500 shadow-[0_30px_90px_rgba(0,0,0,0.08)] sm:rounded-[40px] sm:p-12">
+      <main className="min-h-screen bg-[#f3f2ee] px-2 py-2 sm:px-3 md:px-4">
+        <div className="mx-auto max-w-[1600px] rounded-2xl border border-black/10 bg-white p-4 text-center text-sm font-medium text-zinc-500 shadow-[0_20px_60px_rgba(0,0,0,0.08)] sm:rounded-3xl sm:p-8 md:rounded-[40px] md:p-12 md:text-base">
           Cargando perfil...
         </div>
       </main>
@@ -221,14 +221,14 @@ export default function MyProfile() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f2ee] px-2 py-2 text-zinc-950 sm:px-4 sm:py-4 lg:px-5">
-      <section className="mx-auto min-h-[calc(100vh-16px)] max-w-[1600px] overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_40px_120px_rgba(0,0,0,0.10)] sm:min-h-[calc(100vh-32px)] sm:rounded-[40px]">
+    <main className="min-h-screen bg-[#f3f2ee] px-2 py-2 text-zinc-950 sm:px-3 md:px-4 lg:px-5">
+      <section className="mx-auto min-h-[calc(100vh-16px)] max-w-[1600px] overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)] sm:min-h-[calc(100vh-24px)] sm:rounded-3xl md:rounded-[40px] md:shadow-[0_40px_120px_rgba(0,0,0,0.10)]">
         <header className="border-b border-white/10 bg-black text-white">
-          <div className="flex flex-col gap-4 px-4 py-5 sm:px-8 sm:py-7 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+          <div className="flex flex-col gap-3 px-3 py-4 sm:gap-4 sm:px-5 sm:py-5 md:gap-4 md:px-8 md:py-7 lg:flex-row lg:items-center lg:justify-between lg:px-12">
             <button
               type="button"
               onClick={() => navigate("/home")}
-              className="flex w-full items-center justify-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-3 text-sm font-medium transition hover:bg-white/10 sm:w-auto"
+              className="flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-2.5 text-xs font-medium transition hover:bg-white/10 sm:px-4 sm:py-3 sm:text-sm"
               title="Volver"
             >
               <ArrowLeftIcon />
@@ -236,98 +236,112 @@ export default function MyProfile() {
             </button>
 
             <div className="text-center">
-              <p className="text-[11px] uppercase tracking-[0.32em] text-white/45 sm:tracking-[0.38em]">Personal Area</p>
-              <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">My Profile</h1>
+              <p className="text-[10px] uppercase tracking-widest text-white/45 sm:text-[11px]">Personal Area</p>
+              <h1 className="mt-1 text-lg font-semibold tracking-tight sm:mt-2 sm:text-xl md:text-3xl">My Profile</h1>
             </div>
 
             <button
               type="button"
               onClick={handleLogout}
-              className="w-full rounded-full border border-white/15 bg-white px-5 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-zinc-200 sm:w-auto"
+              className="rounded-full border border-white/15 bg-white px-4 py-2.5 text-xs font-semibold text-black transition hover:-translate-y-0.5 hover:bg-zinc-200 sm:px-5 sm:py-3 md:text-sm"
             >
-              Cerrar sesion
+              Cerrar sesión
             </button>
           </div>
         </header>
 
-        <div className="grid gap-6 px-4 py-5 sm:px-8 sm:py-8 xl:grid-cols-[430px_minmax(0,1fr)] lg:px-12 lg:py-10">
-          <aside className="space-y-4 sm:space-y-5">
-            <div className="relative overflow-hidden rounded-[28px] bg-black p-4 text-white sm:rounded-[36px] sm:p-5">
-              <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,#3b3b3b_0%,transparent_70%)] opacity-50" />
+        <div className="grid gap-3 px-3 py-4 sm:gap-4 sm:px-5 sm:py-6 md:gap-5 md:px-8 md:py-8 lg:grid-cols-[360px_minmax(0,1fr)] lg:px-10 lg:py-10 xl:grid-cols-[430px_minmax(0,1fr)]">
+          {/* Sidebar */}
+          <aside className="space-y-3 sm:space-y-4 md:space-y-5">
+            <div className="relative overflow-hidden rounded-2xl bg-black p-3 text-white sm:rounded-3xl sm:p-4 md:rounded-4xl md:p-5">
+              <div className="absolute inset-x-0 top-0 h-16 bg-[radial-gradient(circle_at_top,#3b3b3b_0%,transparent_70%)] opacity-50" />
               <div className="relative">
-                <div className="overflow-hidden rounded-[24px] bg-zinc-900 sm:rounded-[32px]">
+                <div className="overflow-hidden rounded-2xl bg-zinc-900 sm:rounded-3xl md:rounded-4xl">
                   {previewUrl ? (
-                    <img alt={nombre || "Mi avatar"} className="h-[280px] w-full object-cover sm:h-[460px]" src={previewUrl} />
+                    <img alt={nombre || "Mi avatar"} className="h-64 w-full object-cover sm:h-80 md:h-96 lg:h-[440px]" src={previewUrl} />
                   ) : (
-                    <div className="flex h-[280px] w-full items-center justify-center text-6xl font-semibold text-white sm:h-[460px] sm:text-8xl">
+                    <div className="flex h-64 w-full items-center justify-center text-4xl font-semibold text-white sm:h-80 sm:text-5xl md:h-96 md:text-6xl lg:h-[440px] lg:text-7xl">
                       {(nombre || "M")[0].toUpperCase()}
                     </div>
                   )}
                 </div>
 
-                <label className="mt-4 flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/15 bg-white/10 px-5 py-4 text-sm font-semibold transition hover:bg-white/15 sm:mt-5">
+                <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-2.5 text-xs font-semibold transition hover:bg-white/15 sm:mt-4 sm:gap-3 sm:px-4 sm:py-3 sm:text-sm">
                   <CameraIcon />
-                  Cambiar fotografia
+                  Cambiar fotografía
                   <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
                 </label>
               </div>
             </div>
 
-            <article className="rounded-[28px] border border-black/10 bg-[#f7f7f5] p-5 sm:rounded-[32px] sm:p-7">
-              <p className="text-[11px] uppercase tracking-[0.35em] text-zinc-500">Guia</p>
-              <p className="mt-4 text-sm leading-7 text-zinc-600">
-                Aqui puedes ajustar tu identidad visual y tus datos principales. Los cambios se reflejan en el perfil publico y en el directorio.
+            <article className="rounded-2xl border border-black/10 bg-[#f7f7f5] p-3 sm:rounded-3xl sm:p-4 md:rounded-4xl md:p-5">
+              <p className="text-[10px] uppercase tracking-widest text-zinc-500 sm:text-[11px]">Guía</p>
+              <p className="mt-2.5 text-xs leading-5 text-zinc-600 sm:mt-3 sm:text-sm sm:leading-6 md:text-base md:leading-7">
+                Aquí puedes ajustar tu identidad visual y tus datos principales. Los cambios se reflejan en el perfil público y en el directorio.
               </p>
             </article>
           </aside>
 
-          <section className="space-y-5 sm:space-y-6">
-            <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-5">
-              <div className="rounded-[28px] border border-black/10 bg-[#fbfbfa] p-5 sm:rounded-[36px] sm:p-9">
-                <p className="text-[11px] uppercase tracking-[0.35em] text-zinc-500">Informacion principal</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Profile Settings</h2>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-600">
-                  Mantener esta informacion actualizada hace que el resto del sistema muestre tu perfil de forma consistente.
+          {/* Main Content */}
+          <section className="space-y-4 sm:space-y-5 md:space-y-6">
+            <div className="grid gap-3 sm:gap-4 md:gap-5 lg:grid-cols-[minmax(0,1fr)_220px] xl:grid-cols-[minmax(0,1fr)_260px]">
+              <div className="rounded-2xl border border-black/10 bg-[#fbfbfa] p-4 sm:rounded-3xl sm:p-5 md:rounded-4xl md:p-7">
+                <p className="text-[10px] uppercase tracking-widest text-zinc-500 sm:text-[11px]">Información principal</p>
+                <h2 className="mt-2 text-lg font-semibold tracking-tight sm:mt-3 sm:text-xl md:text-2xl lg:text-3xl">Profile Settings</h2>
+                <p className="mt-2.5 max-w-2xl text-xs leading-5 text-zinc-600 sm:mt-3 sm:text-sm sm:leading-6 md:text-base md:leading-7">
+                  Mantener esta información actualizada hace que el resto del sistema muestre tu perfil de forma consistente.
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-1">
-                <article className="rounded-[24px] border border-black/10 bg-black px-4 py-5 text-white sm:rounded-[30px] sm:px-5 sm:py-6">
-                  <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">Estado</p>
-                  <p className="mt-3 text-xl font-semibold sm:text-2xl">{saving ? "Saving" : "Ready"}</p>
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-1">
+                <article className="rounded-xl border border-black/10 bg-black px-3 py-3 text-white sm:rounded-2xl sm:px-4 sm:py-4 md:rounded-3xl md:px-5 md:py-5">
+                  <p className="text-[10px] uppercase tracking-wider text-white/45 sm:text-[11px]">Estado</p>
+                  <p className="mt-2 text-lg font-semibold sm:text-xl md:text-2xl">{saving ? "Saving" : "Ready"}</p>
                 </article>
-                <article className="rounded-[24px] border border-black/10 bg-[#f7f7f5] px-4 py-5 sm:rounded-[30px] sm:px-5 sm:py-6">
-                  <p className="text-[11px] uppercase tracking-[0.32em] text-zinc-500">Preview</p>
-                  <p className="mt-3 text-xl font-semibold text-black sm:text-2xl">{file ? "Nueva" : "Actual"}</p>
+                <article className="rounded-xl border border-black/10 bg-[#f7f7f5] px-3 py-3 sm:rounded-2xl sm:px-4 sm:py-4 md:rounded-3xl md:px-5 md:py-5">
+                  <p className="text-[10px] uppercase tracking-wider text-zinc-500 sm:text-[11px]">Preview</p>
+                  <p className="mt-2 text-lg font-semibold text-black sm:text-xl md:text-2xl">{file ? "Nueva" : "Actual"}</p>
                 </article>
               </div>
             </div>
 
-            <div className="grid gap-5">
-              <div className="space-y-2">
-                <label className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-500">Nombre completo</label>
-                <div className="flex items-center gap-3 rounded-[24px] border border-black/10 bg-white px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:rounded-[30px] sm:px-6 sm:py-6">
-                  <input value={nombre} onChange={(event) => setNombre(event.target.value)} className="w-full bg-transparent text-xl font-semibold tracking-tight outline-none sm:text-2xl" placeholder="Tu nombre" />
-                  <span className="rounded-full border border-black/10 p-2 text-zinc-500"><EditIcon /></span>
+            {/* Input Fields */}
+            <div className="grid gap-3 sm:gap-4 md:gap-5">
+              <div className="space-y-1.5 sm:space-y-2 md:space-y-2.5">
+                <label className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 sm:text-[11px]">Nombre completo</label>
+                <div className="flex items-center gap-2 rounded-xl border border-black/10 bg-white px-3 py-2.5 shadow-[0_6px_16px_rgba(0,0,0,0.03)] sm:rounded-2xl sm:gap-3 sm:px-4 sm:py-3.5 md:rounded-3xl md:px-5 md:py-4 md:gap-3">
+                  <input 
+                    value={nombre} 
+                    onChange={(event) => setNombre(event.target.value)} 
+                    className="w-full bg-transparent text-sm font-semibold tracking-tight outline-none sm:text-base md:text-lg" 
+                    placeholder="Tu nombre"
+                  />
+                  <span className="rounded-full border border-black/10 p-1.5 text-zinc-500 flex-shrink-0 sm:p-2 md:p-2.5"><EditIcon /></span>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[11px] font-semibold uppercase tracking-[0.35em] text-zinc-500">Correo profesional</label>
-                <div className="flex items-center gap-3 rounded-[24px] border border-black/10 bg-white px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,0.04)] sm:rounded-[30px] sm:px-6 sm:py-6">
-                  <input type="email" value={correo} onChange={(event) => setCorreo(event.target.value)} className="w-full bg-transparent text-base outline-none sm:text-lg" placeholder="correo@ejemplo.com" />
-                  <span className="rounded-full border border-black/10 p-2 text-zinc-500"><EditIcon /></span>
+              <div className="space-y-1.5 sm:space-y-2 md:space-y-2.5">
+                <label className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 sm:text-[11px]">Correo profesional</label>
+                <div className="flex items-center gap-2 rounded-xl border border-black/10 bg-white px-3 py-2.5 shadow-[0_6px_16px_rgba(0,0,0,0.03)] sm:rounded-2xl sm:gap-3 sm:px-4 sm:py-3.5 md:rounded-3xl md:px-5 md:py-4">
+                  <input 
+                    type="email" 
+                    value={correo} 
+                    onChange={(event) => setCorreo(event.target.value)} 
+                    className="w-full bg-transparent text-xs outline-none sm:text-sm md:text-base" 
+                    placeholder="correo@ejemplo.com"
+                  />
+                  <span className="rounded-full border border-black/10 p-1.5 text-zinc-500 flex-shrink-0 sm:p-2 md:p-2.5"><EditIcon /></span>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-black/10 bg-black px-5 py-5 text-sm leading-7 text-white/75 sm:rounded-[32px] sm:px-6">
+            <div className="rounded-2xl border border-black/10 bg-black px-3 py-3 text-xs leading-5 text-white/75 sm:rounded-3xl sm:px-4 sm:py-4 md:rounded-4xl md:px-5 md:py-5 md:text-sm md:leading-6">
               Bienvenido a tu espacio personal.
             </div>
 
             {message ? (
               <p
-                className={`rounded-[24px] px-5 py-4 text-sm font-medium sm:rounded-[26px] ${
+                className={`rounded-xl px-3 py-2.5 text-xs font-medium sm:rounded-2xl sm:px-4 sm:py-3 md:rounded-3xl md:px-5 md:py-4 md:text-sm ${
                   message.includes("correctamente") || message.includes("Se guardo el perfil")
                     ? "border border-emerald-200 bg-emerald-50 text-emerald-700"
                     : "border border-red-200 bg-red-50 text-red-700"
@@ -337,17 +351,17 @@ export default function MyProfile() {
               </p>
             ) : null}
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <div className="flex flex-col gap-2.5 sm:gap-3 md:gap-4 sm:flex-wrap sm:items-center">
               <button
                 type="button"
                 onClick={handleUpdate}
                 disabled={saving}
-                className="w-full rounded-full bg-black px-7 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+                className="w-full rounded-full bg-black px-4 py-2.5 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-5 sm:py-3 md:px-7 md:py-4 md:text-sm"
               >
                 {saving ? "Guardando cambios..." : "Guardar cambios"}
               </button>
 
-              <p className="text-sm text-zinc-500">Vista previa activa: {file ? "imagen nueva seleccionada" : "foto guardada"}</p>
+              <p className="text-xs text-zinc-500 sm:text-sm">Vista previa activa: {file ? "imagen nueva seleccionada" : "foto guardada"}</p>
             </div>
           </section>
         </div>
