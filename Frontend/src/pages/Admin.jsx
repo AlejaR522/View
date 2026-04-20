@@ -51,7 +51,7 @@ export default function Admin() {
     if (tab === "clientes" && clientes.length === 0) getClientes();
   }, [tab]);
 
-  // ── Usuarios ──────────────────────────────────────────
+  //  Usuarios 
   const getUsuarios = async () => {
     setLoadingUsuarios(true);
     try {
@@ -115,7 +115,7 @@ export default function Admin() {
     }
   };
 
-  // ── Clientes ──────────────────────────────────────────
+  // Clientes 
   const getClientes = async () => {
     setLoadingClientes(true);
     try {
