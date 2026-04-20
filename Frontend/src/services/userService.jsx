@@ -1,4 +1,18 @@
-import api from './api';
+
+import api from "../lib/api";
+
+
+export const getUsuarios = () => api('/auth/usuarios');
+
+export const updateUser = (id, updates) =>
+  api(`/auth/usuarios/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(updates),
+  });
+
+export const deleteUser = (id) =>
+  api(`/auth/usuarios/${id}`, { method: 'DELETE' });
+
 
 export const login = async (email, password) => {
   const data = await api('/auth/login', {
