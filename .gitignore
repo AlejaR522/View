@@ -1,12 +1,23 @@
+# Environment files
+**/.env
+**/.env.*
+*.local
+
 
 dist
 dist-ssr
 *.local
 
 # Envs
+.env
+.env.*
+*.env
+*.local
+
 Frontend/.env
-Frontend/.env.local
+Frontend/.env.*
 Backend/.env
+Backend/.env.*
 
 # Node modules
 Frontend/node_modules/
