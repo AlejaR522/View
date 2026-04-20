@@ -1,0 +1,28 @@
+
+dist
+dist-ssr
+*.local
+
+# Envs
+Frontend/.env
+Frontend/.env.local
+Backend/.env
+
+# Node modules
+Frontend/node_modules/
+Backend/node_modules/
+
+# Build
+Frontend/dist/
+
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
