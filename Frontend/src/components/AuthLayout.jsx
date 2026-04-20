@@ -11,7 +11,7 @@ export default function AuthLayout({ children }) {
             </div>
 
             {/* Lado derecho (blanco) - En móvil es visible desde el inicio */}
-            <div className="w-full md:w-1/2 bg-white flex flex-col justify-center items-center px-3 py-6 sm:px-4 sm:py-8 md:p-10 min-h-screen md:min-h-screen">
+                <div className="w-full md:w-1/2 bg-white  flex flex-col justify-center items-center px-3 py-6 sm:px-4 sm:py-8 md:p-10 min-h-screen">
                 {/* Logo móvil */}
                 <div className="md:hidden mb-6 sm:mb-8 text-center">
                     <h1 className="text-3xl sm:text-4xl font-bold text-black mb-1 sm:mb-2">View</h1>
