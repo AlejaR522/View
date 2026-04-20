@@ -3,6 +3,10 @@
 **/.env.*
 *.local
 
+/.dist
+.vite
+.dist
+
 
 dist
 dist-ssr
