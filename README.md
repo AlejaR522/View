@@ -1,3 +1,20 @@
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
 
 # 📱 View App — Mini Red Social
 
@@ -55,7 +72,7 @@ Antes de instalar, asegúrate de tener:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/AlejaR522/View.git
+git clone <URL-del-repositorio>
 cd 03-View
 ```
 
@@ -73,7 +90,7 @@ Crear el archivo **`.env`** dentro de la carpeta `Backend/` con el siguiente con
 ```env
 PORT=5000
 
-# MongoDB Atlas 
+# MongoDB Atlas (pide la URL a tu compañera)
 MONGODB_URI=mongodb+srv://ViewApp:TU_PASSWORD@cluster0.iejmew7.mongodb.net/viewapp?appName=Cluster0
 
 # PostgreSQL local
@@ -210,23 +227,6 @@ Backend/
 └── server.js              ← Entrada principal
 ```
 
-## 📸 Vista previa
-
-### Pantalla de Login
-![Login](./Frontend/screenshots/Login.png)
-
-### Panel Admin — Usuarios
-![Panel Admin Usuarios](./Frontend/screenshots/Admin-Users.png)
-
-### Panel Admin — Clientes (MongoDB)
-![Panel Admin Clientes](./Frontend/screenshots/Admin-Clients.png)
-
-### Pantalla deL Home
-![Login](./Frontend/screenshots/Home.png)
-
-### Pantalla de Perfil
-![Panel Admin Usuarios](./Frontend/screenshots/MyProfile.png)
-
 ---
 
 ## 🔌 Endpoints del Backend
@@ -275,4 +275,4 @@ npm run build
 
 ## 👩‍💻 Desarrollado por
 
-Alejandra Ruiz y Raquel Martinez
+Alejandra Ruiz — Proyecto académico segundo corte
