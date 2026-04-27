@@ -213,19 +213,19 @@ Backend/
 ## 📸 Vista previa
 
 ### Pantalla de Login
-![Login](Frontend/screenshots/Login.png)
+![Login](./Frontend/screenshots/Login.png)
 
 ### Panel Admin — Usuarios
-![Panel Admin Usuarios](./screenshots/Admin-Users.png)
+![Panel Admin Usuarios](./Frontend/screenshots/Admin-Users.png)
 
 ### Panel Admin — Clientes (MongoDB)
-![Panel Admin Clientes](./screenshots/Admin-Clients.png)
+![Panel Admin Clientes](./Frontend/screenshots/Admin-Clients.png)
 
 ### Pantalla deL Home
-![Login](./screenshots/Home.png)
+![Login](./Frontend/screenshots/Home.png)
 
 ### Pantalla de Perfil
-![Panel Admin Usuarios](./screenshots/MyProfile.png)
+![Panel Admin Usuarios](./Frontend/screenshots/MyProfile.png)
 
 ---
 
