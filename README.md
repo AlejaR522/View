@@ -210,6 +210,23 @@ Backend/
 └── server.js              ← Entrada principal
 ```
 
+## 📸 Vista previa
+
+### Pantalla de Login
+![Login](Frontend/screenshots/Login.png)
+
+### Panel Admin — Usuarios
+![Panel Admin Usuarios](./screenshots/Admin-Users.png)
+
+### Panel Admin — Clientes (MongoDB)
+![Panel Admin Clientes](./screenshots/Admin-Clients.png)
+
+### Pantalla deL Home
+![Login](./screenshots/Home.png)
+
+### Pantalla de Perfil
+![Panel Admin Usuarios](./screenshots/MyProfile.png)
+
 ---
 
 ## 🔌 Endpoints del Backend
@@ -258,4 +275,4 @@ npm run build
 
 ## 👩‍💻 Desarrollado por
 
-Alejandra Ruiz end Raquel Martinez
+Alejandra Ruiz y Raquel Martinez
